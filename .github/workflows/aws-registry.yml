@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     # Publish semver tags as releases.  This restricts tags to only releases tagged as x.x.x
-    tags: [ '*.*.*' ]
+    tags: [ '*' ]
 
 env:
   ECR_REPOSITORY: ${{ github.event.repository.name }}
