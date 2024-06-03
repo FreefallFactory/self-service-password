@@ -1,0 +1,61 @@
+repos:
+-   repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+
+    # Identify invalid files
+    - id: check-yaml
+    - id: check-json
+    - id: check-toml
+
+    # git checks
+    - id: check-merge-conflict
+    - id: check-added-large-files
+    - id: detect-private-key
+    - id: check-case-conflict
+
+    # Python checks
+    - id: check-docstring-first
+    - id: debug-statements
+    - id: requirements-txt-fixer
+    - id: fix-encoding-pragma
+    - id: fix-byte-order-marker
+
+    # General quality checks
+    - id: mixed-line-ending
+    - id: trailing-whitespace
+      args: [--markdown-linebreak-ext=md]
+    - id: check-executables-have-shebangs
+    - id: end-of-file-fixer
+
+    # terraform checks
+-   repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.83.2
+    hooks:
+    - id: terraform_checkov
+      args:
+        - --args=--quiet
+        - --args=--compact
+        - --args=--download-external-modules=true
+    - id: terraform_fmt
+    - id: terraform_tflint
+    - id: terraform_tfsec
+      exclude: 'modules/.*'
+    - id: terrascan
+      args:
+        - --args=--non-recursive
+    ### Secret checks
+-   repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+    - id: detect-secrets
+      stages: ["commit", "push"]
+
+-   repo: https://github.com/mattlqx/pre-commit-search-and-replace
+    rev: v1.0.5
+    hooks:
+    - id: search-and-replace
